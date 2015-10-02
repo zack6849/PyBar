@@ -11,3 +11,6 @@ A python-based bar for bspwm.
 * [bspwm](https://github.com/baskerville/bspwm)
 * [lemonbar (With the xft-patch)](https://github.com/krypt-n/bar)
 * [Siji Font](https://github.com/gstk/siji) for the icons.
+
+## Screenshot
+![Screenshot of PyBar](https://www.zack6849.com/uploads/pybar.png)
