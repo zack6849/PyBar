@@ -4,7 +4,6 @@ import pipes
 import time
 import sys
 
-seperator = " %{FYellow}»%{F-} "
 seperator = "   "
 
 def get_date():
@@ -39,12 +38,10 @@ def get_workspaces(monitor):
     print(type(workspaces))
     for workspace in workspaces: 
         workspace = int(workspace)        
-        if monitor == 0:
-            if workspace >= 0 and workspace <= 5:
-                line += str(workspace) + " "
-        if monitor == 1:
-            if workspace > 0 and workspace >= 6:
-                line += str(workspace) + " "
+        if monitor == 0 and workspace in range(1,6):
+            line += str(workspace) + " "
+        if monitor == 1 and workspace in range(6, 11):
+            line += str(workspace) + " "
     return line
 
 def get_active_workspace(monitor):
@@ -53,36 +50,31 @@ def get_active_workspace(monitor):
     for line in tree:
         if "DVI-" + str(monitor) in line:
             flag = True
-        if flag:
-            if line.startswith("\t") and not line.startswith("\t\t"):
-                workspace = int(line.split(" ")[0].strip())
-                if monitor == 0:
-                    if workspace > 0 and workspace <= 5:
-                        if "*" in line:
-                            return workspace
-                if monitor == 1:
-                    if workspace > 1 and workspace >= 6:
-                        if "*" in line:
-                            return workspace
+        if flag and line.startswith("\t") and not line.startswith("\t\t"):
+            workspace = int(line.split(" ")[0].strip())
+            if monitor == 0 and workspace in range(0, 6) and "*" in line:
+                return workspace
+            if monitor == 1 and workspace in range(6,11) and "*" in line:
+                return workspace
 
 def get_workspace_text(monitor):
     focused_color = "%{F#0066FF}"
     unfocused_color = "%{F#66CCFF}"
     window_icon = "\ue056"
-    command = "bspc desktop -f "
-    active_workspace = get_active_workspace(monitor)
     lines = ""
+
+    active_workspace = get_active_workspace(monitor)
     if monitor == 0:
-        lower_bound = 1
-        upper_bound = 6
+        workspace_range = range(1,6)
     if monitor == 1:
-        lower_bound = 6
-        upper_bound = 11
-    for num in range(lower_bound, upper_bound):
+        workspace_range = range(6, 11)
+
+    for num in workspace_range:
         if num == active_workspace:
             lines += focused_color + "%{A:bspc desktop -f " + str(num) + ":}" + window_icon + "%{A}%{F-} "
         else:
             lines += unfocused_color + "%{A:bspc desktop -f " + str(num) + ":}" + window_icon + "%{A}%{F-} "
+
     return lines.strip()
 
 def get_text():
