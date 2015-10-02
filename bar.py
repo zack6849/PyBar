@@ -43,7 +43,7 @@ def get_workspaces(monitor):
             if workspace >= 0 and workspace <= 5:
                 line += str(workspace) + " "
         if monitor == 1:
-            if workspace >0 and workspace >= 6:
+            if workspace > 0 and workspace >= 6:
                 line += str(workspace) + " "
     return line
 
@@ -51,7 +51,7 @@ def get_active_workspace(monitor):
     tree = get_output("bspc query -T").splitlines()
     flag = False
     for line in tree:
-        if "DVI-"+ str(monitor) in line:
+        if "DVI-" + str(monitor) in line:
             flag = True
         if flag:
             if line.startswith("\t") and not line.startswith("\t\t"):
