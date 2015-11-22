@@ -8,6 +8,7 @@ A python-based bar for bspwm.
 
 ##Requirements
 * Python 3
+* Python 3 psutil lib
 * [bspwm](https://github.com/baskerville/bspwm)
 * [lemonbar (With the xft-patch)](https://github.com/krypt-n/bar)
 * [Siji Font](https://github.com/gstk/siji) for the icons.
